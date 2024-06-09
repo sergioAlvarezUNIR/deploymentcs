@@ -5,6 +5,9 @@ import '../../styles/DragMap.css';
 export const DragMap = (props) => {
 
 
+  const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
+
+
 
   const forceUpdate = () => {
     props.setUpdateRad(window.radVar);
@@ -15,7 +18,10 @@ export const DragMap = (props) => {
 
     window.location.href = '/#calculadora';
 
-    
+
+
+
+ 
 
  
 
@@ -82,7 +88,43 @@ export const DragMap = (props) => {
 
                         fetchData2();
 
-  };
+
+
+                        const fetchRad = async () => {
+                          try {
+                            let radAPI=`${URL}/eprad`;                        
+                            const response3 = await fetch(radAPI,{method: "GET"});  
+                            console.log("Esta es la info de response3 dentro de radAPI"); 
+                            console.log(response3);                 
+                            const jsonData3 = await response3.json();
+                            console.log("Esta es la info de jsonData3 dentro de radAPI"); 
+                            console.log(jsonData3);         
+                            console.log("Esta es la info de jsonData3 sacando eprad dentro de radAPI"); 
+                            console.log(jsonData3.eprad[0].eprad);     
+                            window.radVar=jsonData3.eprad[0].eprad;                 
+                                            
+
+               
+
+                          } catch (error) {
+                            console.error('Error fetching Rad data:', error);
+                          }
+                        };
+
+                        fetchRad();
+
+
+
+
+                   
+
+
+
+
+
+  };         
+
+
 
     return (
       <div className="dragmap">

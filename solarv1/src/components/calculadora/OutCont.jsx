@@ -1,13 +1,7 @@
 import React from "react";
 import "../../styles/OutCont.css";
 
-
-
 export const OutCont = (props) => {
-
-   
-   
-
 
     return (
       <div className="outcont">

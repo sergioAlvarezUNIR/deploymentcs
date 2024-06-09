@@ -27,7 +27,6 @@ export const Calculadora = (props) => {
       <div className="container">
               <div  className="calculadora">
                 <h1>CALCULADORA DE SISTEMAS SOLARES</h1>
-                <h1></h1>
                 <InCont inLat={inLat} setInLat={setInLat} updateRad={updateRad} setUpdateRad={setUpdateRad} isShown={isShown} setIsShown={setIsShown} valSistOg={valSistOg} setValSistOg={setValSistOg} tamanoSs={tamanoSs} setTamanoSs={setTamanoSs} data={props.data} porAhoSs={porAhoSs} setPorAhoSs={setPorAhoSs} contAmb={contAmb} setContAmb={setContAmb}/>
                 {isShown==="OutCont" &&<OutCont inLat={inLat} isShown={isShown} setIsShown={setIsShown} valSistOg={valSistOg} setValSistOg={setValSistOg} porAhoSs={porAhoSs} setPorAhoSs={setPorAhoSs} contAmb={contAmb} setContAmb={setContAmb}/> }    
               </div>
