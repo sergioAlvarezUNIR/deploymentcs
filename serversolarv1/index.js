@@ -1,3 +1,5 @@
+const cors = require('cors');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -8,8 +10,12 @@ const port = process.env.PORT || 4041;
 
 const apiUrl = 'https://re.jrc.ec.europa.eu/api/v5_2/MRcalc?lat=40.463667&lon=-3.74922&horirrad=1&outputformat=json';
 
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+
+
 
 app.use('/', require('./routes/users'));
 
