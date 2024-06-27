@@ -1,5 +1,8 @@
 let objeto
 
+const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
+//const URL = "http://localhost:4041";
+
 async function initMap() {
     // Request needed libraries.
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
@@ -25,6 +28,34 @@ async function initMap() {
       infoWindow.open(draggableMarker.map, draggableMarker);
       console.log(`Pin dropped at Lat: ${position.lat}`)
       console.log(`Pin dropped at Lng: ${position.lng}`)
+
+
+                          //Cargar en el backend nueva posición
+                          const fetchRad = async () => {
+                            try {
+                              console.log(URL)
+                              let posAPI=`${URL}/eprad`;                        
+                              const response3 = await fetch(posAPI,{method: "POST", headers: {
+                                'Content-Type': 'application/json',
+                              }, body: JSON.stringify({"lat": position.lat, "lon": position.lng, "eprad": 33})});  
+                              const data = await response3.json();
+                              console.log('Respuesta del servidor:', data);                              
+                              console.log("Esta es la info de response 3 enviada por post eprad al backend"); 
+                              console.log(response3);                 
+                            } catch (error) {
+                              console.error('Error fetching Rad data:', error);
+                            }
+                          };
+
+                          fetchRad();
+
+
+
+                          const funciondeprueba = () => {console.log("Probando funcion de prueba en cada cambio de posición en el mapa")};
+                          funciondeprueba();
+
+
+
 
       window.latVar=position.lat
       window.lonVar=position.lng

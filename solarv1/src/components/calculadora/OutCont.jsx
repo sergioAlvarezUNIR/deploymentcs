@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../styles/OutCont.css";
 
 export const OutCont = (props) => {
+
+  const fnRecalcular = () => {window.location.reload()};
+
+  useEffect(() => {
+  }, [props.valSistOg]);
 
     return (
       <div className="outcont">
@@ -20,6 +25,7 @@ export const OutCont = (props) => {
           <h3>{Number(props.contAmb).toFixed(2)} tCO2 </h3> 
           </div>
         </div>
+        <button className="recargar" onClick={fnRecalcular}>Reiniciar</button>
       </div>
     );
   };

@@ -44,7 +44,7 @@ function fetchData(url) {
         });
 
         res.on('end', () => {
-            console.log('Datos recibidos:', data);
+            console.log('Datos recibidos en index.js del backend express node:', data);
         });
     });
 

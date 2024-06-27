@@ -3,14 +3,15 @@ const router = express.Router();
 
 const https = require('https');
 
-const apiUrl = 'https://re.jrc.ec.europa.eu/api/v5_2/MRcalc?lat=40.463667&lon=-3.74922&horirrad=1&outputformat=json';
+let apiUrl = 'https://re.jrc.ec.europa.eu/api/v5_2/MRcalc?lat=40.463667&lon=-3.74922&horirrad=1&outputformat=json';
 
-const users = [{name: 'Tony', email: 'tony@mymail.com'}]
+const users = [{name: 'Sergio', email: 'tony@mymail.com'}]
 
 let promedioHhm;
 
 //const eprad = {lat: '40.463667', lon: '-3.74922', eprad: 'valor de eprad'}
-let eprad = [{"eprad": 148.123456}];
+let eprad = [{ "lat": 40.463667, "lon": -3.74922, "eprad": 148.123456}];
+let eprads = [{ lat: "40.463667", lon: "-3.74922", eprad: "148.123456"}];
 
 router.get('/', (_, res) => {
     res.send('Your Express App, ' + 'eprad es: ' + eprad[0].eprad);
@@ -36,21 +37,29 @@ router.post('/user', (req, res) => {
 
 
 router.post('/eprad', (req, res) => {
-    const { lon, eprad } = req.body;
-    if (lon && eprad) {
-        users.push({ lon, eprad });
-        res.json({ ok: true, eprad });
+    const { lat, lon, eprad } = req.body;
+    if (lat && lon && eprad) {
+        eprads.push({ lat, lon, eprad });
+        res.json({ ok: true, eprads });
     }
 });
 
 
 router.get('/eprad', (_, res) => {
-    res.json({ ok:true, eprad });
+
+    let lat=parseFloat(eprads[eprads.length-1].lat);
+    let lon=parseFloat(eprads[eprad.length-1].lon);
+
+    console.log(`El valor de lat es ${lat}`);
+    console.log(`El valor de lon es ${lon}`);
+
+    apiUrl = `https://re.jrc.ec.europa.eu/api/v5_2/MRcalc?lat=${lat}&lon=${lon}&horirrad=1&outputformat=json`;
+    console.log(apiUrl);
 
     valor = fetchData(apiUrl);
-    console.log(`El valor valor es: ${valor} `);
-
-    eprad = [{eprad: valor}];
+   
+    eprad = [{lat: lat||40.463667, lon: lon||-3.74922, eprad: valor||148.123456}]; 
+    res.json({ ok:true, eprad });
 
 });
 
@@ -72,7 +81,7 @@ function fetchData(url) {
             data += chunk;
         });
         res.on('end', () => {
-            console.log('Datos recibidos desde users-server:', data);
+            console.log('Datos recibidos desde users-serverTe:', data);
 
 
             try {

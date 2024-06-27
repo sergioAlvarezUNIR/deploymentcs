@@ -5,8 +5,8 @@ import '../../styles/DragMap.css';
 export const DragMap = (props) => {
 
 
-  const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
-
+  //const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
+  const URL = "http://localhost:4041";
 
 
   const forceUpdate = () => {
@@ -17,51 +17,6 @@ export const DragMap = (props) => {
     props.setIsShown("InForm");
 
     window.location.href = '/#calculadora';
-
-
-
-
- 
-
- 
-
-
-                        const fetchData = async () => {
-                          try {
-                            let pvgisAPI=`https://re.jrc.ec.europa.eu/api/v5_2/MRcalc?lat=${window.latVar}&lon=${window.lonVar}&horirrad=1&outputformat=json`;                        
-                            const response = await fetch(pvgisAPI, {method: "GET",  mode: "cors"/* no-cors, *cors, same-origin*//*credentials: "include",  include, *same-origin, omit*/ /*headers: {"Content-Type": "json"}, *//*, referrerPolicy: "same-origin"  no-referrer,"unsafe-url", *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url*/ });                           
-
-                            const jsonData = await response.json();
-                            //setData(jsonData);
-                            
-                            console.log("Esta es la info de jsonData dentro de DragMAp")
-                            console.log(jsonData);
-
-
-                                                                // Obtén los valores de H(h)_m de cada mes
-                                              const valoresHhm = jsonData.outputs.monthly.map(mes => mes["H(h)_m"]);
-                                              
-                                              // Calcula la suma de todos los valores
-                                              const sumaValores = valoresHhm.reduce((acumulador, siguienteValor) => acumulador + siguienteValor, 0);
-                                              
-                                              // Calcula el promedio
-                                              const promedioHhm = sumaValores / jsonData.outputs.monthly.length;
-                                              
-                                              console.log(`El promedio de H(h)_m es: ${promedioHhm} kWh/m2/mo`);
-
-                                              window.radVar=promedioHhm;
-                                              console.log("Esto es dentro de DragMap El promedio rad dentro de fetch es " + window.radVar);
-
-                          } catch (error) {
-                            console.error('Error fetching data:', error);
-                          }
-                        };
-
-                        fetchData();
-
-
-
-
 
                         const fetchData2 = async () => {
                           try {
@@ -93,18 +48,11 @@ export const DragMap = (props) => {
                         const fetchRad = async () => {
                           try {
                             let radAPI=`${URL}/eprad`;                        
-                            const response3 = await fetch(radAPI,{method: "GET"});  
-                            console.log("Esta es la info de response3 dentro de radAPI"); 
-                            console.log(response3);                 
-                            const jsonData3 = await response3.json();
-                            console.log("Esta es la info de jsonData3 dentro de radAPI"); 
-                            console.log(jsonData3);         
-                            console.log("Esta es la info de jsonData3 sacando eprad dentro de radAPI"); 
+                            const response3 = await fetch(radAPI,{method: "GET"});                  
+                            const jsonData3 = await response3.json();                              
+                            console.log("Esta es la info recibida de la consulta del frontend de radAPI"); 
                             console.log(jsonData3.eprad[0].eprad);     
-                            window.radVar=jsonData3.eprad[0].eprad;                 
-                                            
-
-               
+                            window.radVar=jsonData3.eprad[0].eprad;                             
 
                           } catch (error) {
                             console.error('Error fetching Rad data:', error);
@@ -128,7 +76,7 @@ export const DragMap = (props) => {
 
     return (
       <div className="dragmap">
-          <h2>Selecione la ubicación en el mapa</h2>
+          <h2>Arrastra el pin a la ubicación del proyecto</h2>
           <div id="map" style={{height: "40vh", width: "50vw"}}></div>
           <button className="dragmap" onClick={forceUpdate}>Continuar</button>
       </div>
