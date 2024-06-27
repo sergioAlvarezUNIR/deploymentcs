@@ -9,7 +9,8 @@ async function initMap() {
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
     const map = new Map(document.getElementById("map"), {
       center: { lat: 40.463667, lng: -3.74922 },
-      zoom: 5
+      zoom: 5,
+      mapId: '73169f8f5ea22f74'
     });
     const infoWindow = new InfoWindow();
     const draggableMarker = new AdvancedMarkerElement({
