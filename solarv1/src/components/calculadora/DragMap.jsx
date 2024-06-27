@@ -5,8 +5,8 @@ import '../../styles/DragMap.css';
 export const DragMap = (props) => {
 
 
-  //const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
-  const URL = "http://localhost:4041";
+  const URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4041";
+  //const URL = "http://localhost:4041";
 
 
   const forceUpdate = () => {
