@@ -1,6 +1,6 @@
 let objeto
-
-const URL = process.env.REACT_APP_BACKEND_URL;
+const URL = "https://backend-3qeo.onrender.com";
+//const URL = process.env.REACT_APP_BACKEND_URL;
 //const URL = "http://localhost:4041";
 
 async function initMap() {
